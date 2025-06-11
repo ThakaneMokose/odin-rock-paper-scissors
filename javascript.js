@@ -3,13 +3,6 @@ console.log("Hello World");
 let humanScore = 0;
 let computerScore = 0;
 
-
-/*const getHumanChoice = () => {
-    const choice = prompt("Please enter rock, paper, or scissors:");
-    return choice;
-}
-console.log(getHumanChoice());*/
-
 function getComputerChoice (){
     const choices = ["rock", "paper", "scissors"];
     const randomIndex = Math.floor(Math.random() * choices.length);
@@ -19,27 +12,42 @@ console.log(getComputerChoice());
 const div = document.querySelector("div");
 
 function playRound (humanChoice, computerChoice){
+
     humanChoice = humanChoice.toLowerCase();
-    div.textContent = `You chose ${humanChoice}. Computer chose ${computerChoice}.  `;
+    div.innerHTML = `<p>You chose ${humanChoice}. Computer chose ${computerChoice}.</p>`;
+    
+    if (humanScore === 5 || computerScore === 5) {
+        humanScore = 0;
+        computerScore = 0;
+    }
+
     if(humanChoice === computerChoice){
-        div.textContent += "its a tie.";
+        div.innerHTML += "<p>its a tie.</p>";
     }
     else if(humanChoice == "paper" && computerChoice == "scissors"){
-        div.textContent += "You lose! Scissors beats paper.";
+        div.innerHTML += "<p>You lose! Scissors beats paper.</p>";
         computerScore++;
     }
     else if(humanChoice == "scissors" && computerChoice == "rock"){
-        div.textContent += "You lose! Rock beats scissors.";
+        div.innerHTML += "<p>You lose! Rock beats scissors.</p>";
         computerScore++;
     }
     else if(humanChoice == "rock" && computerChoice == "paper"){
-        div.textContent += "You lose! Paper beats rock.";
+        div.innerHTML += "<p>You lose! Paper beats rock.</p>";
         computerScore++;
     }else{
-        div.textContent += "You win!!!";
+        div.innerHTML += "<p>You win!</p>";
         humanScore++;
+    };
+
+    div.innerHTML+= `<p>human:${humanScore}. computer:${computerScore}</p>`;
+    
+    if(humanScore == 5){
+        div.innerHTML+=`<p>You won the game!</p>`;
+    }else if(computerScore == 5){
+        div.innerHTML+=`<p>Computer won the game!</p>`;
     }
-}
+};
 
 const rockBtn = document.querySelector(".rock");
 const paperBtn = document.querySelector(".paper");
